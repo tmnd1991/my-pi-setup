@@ -1,0 +1,15 @@
+{
+  "packages": [
+    {
+      "source": "npm:pi-subagents",
+      "skills": [],
+      "prompts": []
+    },
+    "npm:pi-web-access",
+    "npm:pi-lens"
+  ],
+  "subagents": {
+    "skills": [],
+    "disableBuiltins": true
+  }
+}

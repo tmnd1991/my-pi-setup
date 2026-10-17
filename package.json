@@ -1,0 +1,45 @@
+{
+  "name": "pi-toolkit",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Git-installable Pi toolkit: project skills, subagents, Pi Lens/LSP, and web access.",
+  "type": "module",
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "keywords": [
+    "pi-package"
+  ],
+  "files": [
+    "skills/",
+    "project/",
+    "tests/",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test tests/*.test.mjs"
+  },
+  "dependencies": {
+    "pi-subagents": ">=0.79.0",
+    "pi-lens": ">=4.4.3",
+    "pi-web-access": ">=0.42.0"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-ai": "*",
+    "@earendil-works/pi-agent-core": "*",
+    "@earendil-works/pi-coding-agent": "*",
+    "@earendil-works/pi-tui": "*",
+    "typebox": "*"
+  },
+  "pi": {
+    "extensions": [
+      "./node_modules/pi-subagents/index.js",
+      "./node_modules/pi-lens/dist/index.js",
+      "./node_modules/pi-web-access/dist/index.js"
+    ],
+    "skills": [
+      "./skills",
+      "./node_modules/pi-lens/skills"
+    ]
+  }
+}

@@ -24,6 +24,7 @@ test("all three extensions are minimum-version runtime dependencies with explici
     "./node_modules/pi-subagents/index.js",
     "./node_modules/pi-lens/dist/index.js",
     "./node_modules/pi-web-access/dist/index.js",
+    "./extensions/mcp-setup.ts",
   ]);
   for (const path of manifest.pi.extensions) assert.ok(existsSync(join(toolkit, path)), path);
 });

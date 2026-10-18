@@ -4,15 +4,12 @@ A Git-installable Pi package containing **all three extensions and your skills**
 
 ## One-command installation
 
-Once this directory is published as the root of its own Git repository:
-
 ```sh
-pi install --local git:github.com/YOURNAME/pi-toolkit@v0.2.0
+pi install --local git:github.com/tmnd1991/my-pi-setup
 ```
 
-Replace `YOURNAME` with the repository owner. The URL is a placeholder until
-you publish the repository and create that tag. Private repositories require
-working Git authentication; Pi also accepts SSH Git sources.
+Append `@<tag>` to pin a release once one is published. Private repositories
+require working Git authentication; Pi also accepts SSH Git sources.
 
 Pi clones the package, installs its npm dependencies, and adds a single
 project-local package declaration. No setup script, separate extension installs,
@@ -33,14 +30,11 @@ Declaring dependencies alone would not load their extensions. Subagents' extra
 skills and prompt templates are deliberately excluded, matching your original
 resource filters.
 
-## Publish the repository (one-time author setup)
+## Releasing
 
-1. Create a Git repository with the **contents of this directory at its root**,
-   not a repository with another nested `pi-toolkit/` directory.
-2. Commit the sources; do not commit `node_modules/` or `package-lock.json`.
-3. Push the repository and a release tag named `v0.2.0`.
+Commit the sources (never `node_modules/` or `package-lock.json`), then push a
+release tag matching `package.json`'s version, e.g. `v0.2.0`.
 
-This work has not created a remote, committed, tagged, or pushed anything.
 The package is private only in npm's sense: `private: true` prevents accidental
 npm publication and does not prevent Git installation.
 
@@ -59,9 +53,12 @@ configuration. It is not applied and is not needed for installing the extensions
 In particular, the old `subagents.disableBuiltins: true` setting is not imposed on
 new projects.
 
-The optional MCP launcher remains at `project/.pi/scripts/mcp/run.sh`. It is not
-automatically copied or registered. Configure MCP servers separately and keep
-secrets outside Git.
+Run `/toolkit-mcp` to opt in to the recommended MCP servers (currently context7).
+It asks per server and merges entries into the project's `.pi/mcp.json` (read only in trusted projects) without
+overwriting existing ones. Until servers are configured, Pi shows a startup warning
+and the agent mentions the command once per session; run `/toolkit-mcp dismiss` to
+stop reminders. Servers launch through `project/.pi/scripts/mcp/run.sh`, which
+loads secrets from `~/.config/<repo-folder>/.mcp.env`, outside Git.
 
 Do not also install these three extensions separately in the same Pi environment:
 Pi sees the toolkit and each standalone package as distinct packages, so duplicate
@@ -92,7 +89,7 @@ npm test
 ```
 
 Host Pi APIs and TypeBox are peer dependencies supplied by Pi; do not install
-physical copies into the toolkit. Local `pi install --local ./pi-toolkit` does
+physical copies into the toolkit. Local `pi install --local ./my-pi-setup` does
 not install dependencies, so use the Git source for the one-command experience.
 
 After installation, inspect startup diagnostics and `pi list`, and run
